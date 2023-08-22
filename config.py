@@ -11,9 +11,9 @@ TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 DEBUG = False;
 POLLING_SPEED = int(os.getenv('POLLING_SPEED'))
 
-addresses = ['0x28C6c06298d514Db089934071355E5743bf21d60']
-amount_from = 0
-amount_to = 100
+addresses = ['0xddfAbCdc4D8FfC6d5beaf154f18B778f892A0740']
+amount_from = 0.1
+amount_to = 10
 
 
 def set_addresses(update: Update, context: CallbackContext) -> None:
