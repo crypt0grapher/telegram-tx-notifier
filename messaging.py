@@ -21,7 +21,7 @@ help_msg = "Use /config to see current configuration\n\
 
 def telegram_init():
     print(bot.get_me())
-    updater = Updater(token=TELEGRAM_BOT_TOKEN)
+    updater = Updater(TELEGRAM_BOT_TOKEN)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("adr", set_addresses, pass_args=True))
     dp.add_handler(CommandHandler("amt_from", set_amount_from, pass_args=True))
