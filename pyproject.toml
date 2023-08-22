@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "telegram-etherscan-notifier"
+version = "0.1.0"
+description = "A tool to notify via Telegram about transactions from specified Ethereum addresses using Etherscan API."
+authors = ["crypt0grapher"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.25.1"
+python-decouple = "^3.4"
+python-telegram-bot = "^13.7"
+asyncio = "^3.4.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start = "python main.py"
