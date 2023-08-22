@@ -4,7 +4,6 @@ import asyncio
 
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext
-from telegram.utils.helpers import DEFAULT_NONE
 
 from config import ETHERSCAN_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, set_addresses, set_amount_from, \
     set_amount_to, display_config, toggle_debug, set_polling_speed
@@ -41,5 +40,5 @@ def help(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(help_msg)
 
 
-def send_telegram_message(message, parse_mode=DEFAULT_NONE):
-    bot.send_message(text=message, chat_id=TELEGRAM_CHAT_ID, parse_mode=parse_mode)
+def send_telegram_message(message):
+    bot.send_message(text=message, chat_id=TELEGRAM_CHAT_ID, parse_mode="HTML")

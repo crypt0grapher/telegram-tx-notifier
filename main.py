@@ -34,7 +34,7 @@ def main():
                     + record["to"] + "\n" + "value: " + str(amount)
                 )
                 message = f'<a href="https://etherscan.io/tx/{record["hash"]}">View Transaction on Etherscan</a>'
-                send_telegram_message(message, parse_mode="HTML")
+                send_telegram_message(message)
 
                 last_record = records[-1]
 
