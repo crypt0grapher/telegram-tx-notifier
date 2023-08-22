@@ -25,12 +25,15 @@ def main():
             if config.DEBUG:
                 send_telegram_message(f"Qurying Etherscan for sender {address}")
             records = get_etherscan_data(address)
-            if records and last_record != records[-1]:
+            for record in records:
+                amount = record["value"] / 10 ** 18
                 send_telegram_message(
-                    "tx hash: " + records[-1]["hash"] + "\n" + "from: " + records[-1]["from"] + "\n" + "to: "
-                    + records[-1]["to"] + "\n" + "value: " + records[-1]["value"]
+                    "block: " + record["blockNumber"] + "\n" + "timestamp: " + record[
+                        "timeStamp"] + "\n" + "gas price: " + record["gasPrice"] + "\n" +
+                    "tx hash: " + record["hash"] + "\n" + "from: " + record["from"] + "\n" + "to: "
+                    + record["to"] + "\n" + "value: " + amount
                 )
-                message = f'<a href="https://etherscan.io/tx/{records[-1]["hash"]}">View Transaction on Etherscan</a>'
+                message = f'<a href="https://etherscan.io/tx/{record["hash"]}">View Transaction on Etherscan</a>'
                 send_telegram_message(message, parse_mode="HTML")
 
                 last_record = records[-1]

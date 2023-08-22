@@ -8,12 +8,12 @@ load_dotenv()
 ETHERSCAN_API_KEY = os.getenv('ETHERSCAN_API_KEY')
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
-DEBUG = bool(os.getenv('DEBUG'))
+DEBUG = False;
 POLLING_SPEED = int(os.getenv('POLLING_SPEED'))
 
-addresses = ['0x21a31ee1afc51d94c2efccaa2092ad1028285549']
+addresses = ['0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84']
 amount_from = 0
-amount_to = 1000
+amount_to = 100
 
 
 def set_addresses(update: Update, context: CallbackContext) -> None:
