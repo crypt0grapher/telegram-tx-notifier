@@ -94,4 +94,4 @@ def toggle_debug(update: Update, context: CallbackContext) -> None:
 
 def display_config(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(
-        f"Current bot configuration\nAddresses: {', '.join(addresses)}\nAmount from: {amount_from}\nAmount to: {amount_to}\nPolling speed: {POLLING_SPEED} seconds\nDebug: {DEBUG}")
+        f"Current bot configuration\nAddresses: {', '.join(addresses)}\nAmount from: {amount_from} ETH\nAmount to: {amount_to} ETH\nPolling speed: {POLLING_SPEED} seconds\nDebug: {DEBUG}")
