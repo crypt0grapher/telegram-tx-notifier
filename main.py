@@ -26,12 +26,12 @@ def main():
                 send_telegram_message(f"Qurying Etherscan for sender {address}")
             records = get_etherscan_data(address)
             for record in records:
-                amount = record["value"] / 10 ** 18
+                amount = float(record["value"]) / 10 ** 18
                 send_telegram_message(
                     "block: " + record["blockNumber"] + "\n" + "timestamp: " + record[
                         "timeStamp"] + "\n" + "gas price: " + record["gasPrice"] + "\n" +
                     "tx hash: " + record["hash"] + "\n" + "from: " + record["from"] + "\n" + "to: "
-                    + record["to"] + "\n" + "value: " + amount
+                    + record["to"] + "\n" + "value: " + str(amount)
                 )
                 message = f'<a href="https://etherscan.io/tx/{record["hash"]}">View Transaction on Etherscan</a>'
                 send_telegram_message(message, parse_mode="HTML")

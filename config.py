@@ -11,7 +11,7 @@ TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 DEBUG = False;
 POLLING_SPEED = int(os.getenv('POLLING_SPEED'))
 
-addresses = ['0xdAC17F958D2ee523a2206206994597C13D831ec7']
+addresses = ['0x28C6c06298d514Db089934071355E5743bf21d60']
 amount_from = 0
 amount_to = 100
 
