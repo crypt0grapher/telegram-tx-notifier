@@ -21,14 +21,20 @@ def telegram_init():
     dp.add_handler(CommandHandler("config", display_config, pass_args=True))
     dp.add_handler(CommandHandler("debug", toggle_debug, pass_args=False))
     dp.add_handler(CommandHandler("speed", set_polling_speed, pass_args=True))
+    dp.add_handler(CommandHandler("help", help, pass_args=False))
     updater.start_polling()
+    help()
+    return True
+
+
+def help():
     send_telegram_message("Bot online, use /config to see current configuration\n\
     Use /adr to set sender addresses to watch\n\
     Use /amt_from to set minimum amount to watch\n\
     Use /amt_to to set maximum amount to watch\n\
     Use /speed to set polling speed in seconds\n\
-    Use /debug to toggle debug mode with extra logging")
-    return True
+    Use /debug to toggle debug mode with extra logging\n\
+    Use /help to see this message again")
 
 
 def send_telegram_message(message, parse_mode=DEFAULT_NONE):
