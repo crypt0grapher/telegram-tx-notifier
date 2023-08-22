@@ -8,8 +8,8 @@ load_dotenv()
 ETHERSCAN_API_KEY = os.getenv('ETHERSCAN_API_KEY')
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
-DEBUG = False;
-POLLING_SPEED = int(os.getenv('POLLING_SPEED'))
+DEBUG = False
+POLLING_SPEED = 5
 
 addresses = ['0xddfAbCdc4D8FfC6d5beaf154f18B778f892A0740']
 amount_from = 0.1
