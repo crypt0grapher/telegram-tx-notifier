@@ -19,11 +19,7 @@ def main():
     last_record = None
 
     while True:
-        if config.DEBUG:
-            send_telegram_message("Checking for new transactions...")
         for address in config.addresses:
-            if config.DEBUG:
-                send_telegram_message(f"Qurying Etherscan for sender {address}")
             records = get_etherscan_data(address)
             for record in records:
                 amount = float(record["value"]) / 10 ** 18
@@ -31,7 +27,7 @@ def main():
                     "block: " + record["blockNumber"] + "\n" + "timestamp: " + record[
                         "timeStamp"] + "\n" + "gas price: " + record["gasPrice"] + "\n" +
                     "tx hash: " + record["hash"] + "\n" + "from: " + record["from"] + "\n" + "to: "
-                    + record["to"] + "\n" + "value: " + str(amount)
+                    + record["to"] + "\n" + "value: " + str(amount) + " ETH"
                 )
                 message = f'<a href="https://etherscan.io/tx/{record["hash"]}">View Transaction on Etherscan</a>'
                 send_telegram_message(message)

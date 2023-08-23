@@ -44,7 +44,7 @@ def set_amount_from(update: Update, context: CallbackContext) -> None:
             update.message.reply_text(f"Amount from must be less than 999999")
             amount_from = 999999
         else:
-            update.message.reply_text(f"Amount from set to: {amount_from}")
+            update.message.reply_text(f"Amount from set to: {amount_from} ETH")
 
 
 def set_amount_to(update: Update, context: CallbackContext) -> None:
@@ -67,7 +67,7 @@ def set_amount_to(update: Update, context: CallbackContext) -> None:
             update.message.reply_text(f"Amount to must be less than 999999")
             amount_to = 999999
         else:
-            update.message.reply_text(f"Amount to set to: {amount_to}")
+            update.message.reply_text(f"Amount to set to: {amount_to} ETH")
 
 
 def set_polling_speed(update: Update, context: CallbackContext) -> None:
