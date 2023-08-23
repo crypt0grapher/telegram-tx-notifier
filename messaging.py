@@ -31,7 +31,7 @@ def telegram_init():
     dp.add_handler(CommandHandler("speed", set_polling_speed, pass_args=True))
     dp.add_handler(CommandHandler("help", help, pass_args=False))
     updater.start_polling()
-    send_telegram_message("Ethereum Transaction Scanner Telegram Bot\n"+help_msg)
+    send_telegram_message("Ethereum Transaction Scanner Telegram Bot\n\n"+help_msg)
     return True
 
 
