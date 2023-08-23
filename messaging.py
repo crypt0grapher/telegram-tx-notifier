@@ -10,13 +10,13 @@ from config import ETHERSCAN_API_KEY, TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, set_
 
 bot = telegram.Bot(TELEGRAM_BOT_TOKEN)
 
-help_msg = "Use /config to see current configuration\n\
-    Use /adr to set sender addresses to watch\n\
-    Use /amt_from to set minimum amount to watch\n\
-    Use /amt_to to set maximum amount to watch\n\
-    Use /speed to set polling speed in seconds\n\
-    Use /debug to toggle debug mode with extra logging\n\
-    Use /help to see this message again"
+help_msg = "/config to view the current configuration.\n\
+/adr to specify the sender addresses to monitor.\n\
+/amt_from to set the minimum transaction amount to monitor.\n\
+/amt_to to set the maximum transaction amount to monitor.\n\
+/speed to define the polling frequency in seconds.\n\
+/debug to toggle debug mode for detailed logging.\n\
+Use /help to display this help message again."
 
 
 def telegram_init():
@@ -31,7 +31,7 @@ def telegram_init():
     dp.add_handler(CommandHandler("speed", set_polling_speed, pass_args=True))
     dp.add_handler(CommandHandler("help", help, pass_args=False))
     updater.start_polling()
-    send_telegram_message("Telegram bot online")
+    send_telegram_message("Ethereum Transaction Scanner Telegram Bot online")
     send_telegram_message(help_msg)
     return True
 
