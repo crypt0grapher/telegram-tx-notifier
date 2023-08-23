@@ -27,7 +27,7 @@ def main():
                     "block: " + record["blockNumber"] + "\n" + "timestamp: " + record[
                         "timeStamp"] + "\n" + "gas price: " + record["gasPrice"] + "\n" +
                     "tx hash: " + hash_with_link + "\n" + "from: " + record["from"] + "\n" + "to: "
-                    + record["to"] + "\n" + "value: " + str(amount) + " ETH\n" + message
+                    + record["to"] + "\n" + "value: " + str(amount) + " ETH\n"
                 )
             time.sleep(config.POLLING_SPEED)  # Check every second
 
