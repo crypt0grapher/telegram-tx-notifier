@@ -6,11 +6,11 @@ from debug import debugmsg
 from helpers import safe_bignumber_to_float
 from messaging import send_telegram_message
 
-prev_block = 0
+prev_block_response = ""
 
 
 def get_etherscan_data(address):
-    global prev_block
+    global prev_block_response
     from_address = address
     min_amount = config.amount_from
     max_amount = config.amount_to
@@ -24,9 +24,6 @@ def get_etherscan_data(address):
     }
     response = requests.get(url, params=latest_block_params)
     latest_block = int(response.json()["result"], 16)
-    if latest_block == prev_block:
-        return []
-    prev_block = latest_block
     # Adjust startblock to only retrieve recent transactions
     # start_block = max(0, latest_block - 100)
 
@@ -42,6 +39,9 @@ def get_etherscan_data(address):
 
     response = requests.get(url, params=parameters)
     data = response.json()
+    if prev_block_response == data:
+        return []
+    prev_block_response = data
     print(data)
     if isinstance(data["result"], list):
         filtered_tx = [tx for tx in data["result"] if
