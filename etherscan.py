@@ -3,16 +3,16 @@ import requests
 import config
 from config import ETHERSCAN_API_KEY
 from debug import debugmsg
+from helpers import safe_bignumber_to_float
 from messaging import send_telegram_message
 
 prev_block = 0
 
-
 def get_etherscan_data(address):
     global prev_block
     from_address = address
-    min_amount = config.amount_from * 10 ** 18
-    max_amount = config.amount_to * 10 ** 18
+    min_amount = config.amount_from
+    max_amount = config.amount_to
     url = "https://api.etherscan.io/api"
 
     # Get the latest block number first
@@ -44,7 +44,8 @@ def get_etherscan_data(address):
     print(data)
     if isinstance(data["result"], list):
         filtered_tx = [tx for tx in data["result"] if
-                       tx["from"].lower() == from_address.lower() and min_amount <= float(tx["value"]) <= max_amount]
+                       tx["from"].lower() == from_address.lower() and min_amount <= safe_bignumber_to_float(
+                           tx["value"]) <= max_amount]
         debugmsg(
             "Block " + str(latest_block) + "\nTxs: " + str(
                 len(data["result"])) + "\nAfter filtering: " + str(len(filtered_tx)))
