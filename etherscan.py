@@ -31,7 +31,7 @@ def get_etherscan_data(address):
         "module": "account",
         "action": "txlist",
         "address": from_address,
-        "startblock": latest_block - 10,
+        "startblock": latest_block - 5,
         "endblock": latest_block,
         "sort": "asc",
         "apikey": ETHERSCAN_API_KEY
@@ -54,7 +54,7 @@ def get_etherscan_data(address):
             transaction_cache.append(tx["hash"])
         debugmsg(
             "Block " + str(latest_block) + "\nTxs: " + str(
-                len(data["result"])) + "\nAfter filtering: " + str(len(filtered_tx))) + "\nNew: " + str(len(new_filtered_txs))
+                len(data["result"])) + "\nAfter filtering: " + str(len(new_filtered_txs)))
         return new_filtered_txs
     else:
         debugmsg(f"block: {latest_block}, no transactions found: {data}")
