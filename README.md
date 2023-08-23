@@ -1,9 +1,9 @@
 # New Ether Transfers Notifier Telegram Bot
 
 ## Description
-
-This is simple and straightforward Etherscan-powered Telegram bot that notifies about new incoming Ether transfers from
-a gven wallet.
+Etherscan has a great new (to the moment) feature of advanced filtering, although it lacks the ability to notify about the new transacitons.
+This simple Etherscan-powered Telegram bot fills in this gap and notifies about new incoming Ether transfers from
+a gven wallet that lies within a given range.
 
 ## Usage
 
