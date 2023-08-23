@@ -16,7 +16,7 @@ help_msg = "/config to view the current configuration.\n\
 /amt_to to set the maximum transaction amount to monitor.\n\
 /speed to define the polling frequency in seconds.\n\
 /debug to toggle debug mode for detailed logging.\n\
-Use /help to display this help message again."
+/help to display this help message again."
 
 
 def telegram_init():
@@ -31,7 +31,7 @@ def telegram_init():
     dp.add_handler(CommandHandler("speed", set_polling_speed, pass_args=True))
     dp.add_handler(CommandHandler("help", help, pass_args=False))
     updater.start_polling()
-    send_telegram_message("Ethereum Transaction Scanner Telegram Bot online")
+    send_telegram_message("Ethereum Transaction Scanner Telegram Bot\nEtherscan connected.")
     send_telegram_message(help_msg)
     return True
 
