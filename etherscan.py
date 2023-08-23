@@ -6,6 +6,8 @@ from debug import debugmsg
 from messaging import send_telegram_message
 
 prev_block = 0
+
+
 def get_etherscan_data(address):
     global prev_block
     from_address = address
@@ -48,7 +50,7 @@ def get_etherscan_data(address):
                 len(data["result"])) + "\nAfter filtering: " + str(len(filtered_tx)))
         return filtered_tx
     else:
-        debugmsg(f"No transactions found, {data}")
+        debugmsg(f"block: {latest_block}, no transactions found: {data}")
         return []
 
 
