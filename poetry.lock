@@ -287,15 +287,18 @@ toml = "*"
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
-name = "python-decouple"
-version = "3.8"
-description = "Strict separation of settings from code."
+name = "python-dotenv"
+version = "0.17.1"
+description = "Read key-value pairs from a .env file and set them as environment variables"
 optional = false
 python-versions = "*"
 files = [
-    {file = "python-decouple-3.8.tar.gz", hash = "sha256:ba6e2657d4f376ecc46f77a3a615e058d93ba5e465c01bbe57289bfb7cce680f"},
-    {file = "python_decouple-3.8-py3-none-any.whl", hash = "sha256:d0d45340815b25f4de59c974b855bb38d03151d81b037d9e3f463b0c9f8cbd66"},
+    {file = "python-dotenv-0.17.1.tar.gz", hash = "sha256:b1ae5e9643d5ed987fc57cc2583021e38db531946518130777734f9589b3141f"},
+    {file = "python_dotenv-0.17.1-py2.py3-none-any.whl", hash = "sha256:00aa34e92d992e9f8383730816359647f358f4a3be1ba45e5a5cefd27ee91544"},
 ]
+
+[package.extras]
+cli = ["click (>=5.0)"]
 
 [[package]]
 name = "python-telegram-bot"
@@ -489,4 +492,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "455737e8f301a38f27deb07bec4235a32b99d10b5124037eb671c8a5f0a7efb3"
+content-hash = "638dba20e75698e365d0327d8ec628d83a64e9afd7ca63f618bbd9788bffbc03"
