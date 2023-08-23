@@ -8,6 +8,7 @@ from messaging import send_telegram_message
 
 prev_block = 0
 
+
 def get_etherscan_data(address):
     global prev_block
     from_address = address

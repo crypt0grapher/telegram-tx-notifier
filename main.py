@@ -5,6 +5,7 @@ import os
 
 import config
 from etherscan import get_etherscan_data, etherscan_init
+from helpers import safe_bignumber_to_float
 from messaging import send_telegram_message, telegram_init
 from dotenv import load_dotenv
 
@@ -16,25 +17,19 @@ def main():
     if not etherscan_init():
         sys.exit("Error initializing etherscan")
 
-    last_record = None
-
     while True:
         for address in config.addresses:
             records = get_etherscan_data(address)
             for record in records:
-                amount = float(record["value"]) / 10 ** 18
+                amount = safe_bignumber_to_float(record["value"])
+                message = f'<a href="https://etherscan.io/tx/{record["hash"]}">View Transaction on Etherscan</a>'
                 send_telegram_message(
                     "block: " + record["blockNumber"] + "\n" + "timestamp: " + record[
                         "timeStamp"] + "\n" + "gas price: " + record["gasPrice"] + "\n" +
                     "tx hash: " + record["hash"] + "\n" + "from: " + record["from"] + "\n" + "to: "
-                    + record["to"] + "\n" + "value: " + str(amount) + " ETH"
+                    + record["to"] + "\n" + "value: " + str(amount) + " ETH\n" + message
                 )
-                message = f'<a href="https://etherscan.io/tx/{record["hash"]}">View Transaction on Etherscan</a>'
-                send_telegram_message(message)
-
-                last_record = records[-1]
-
-        time.sleep(config.POLLING_SPEED)  # Check every second
+            time.sleep(config.POLLING_SPEED)  # Check every second
 
 
 if __name__ == "__main__":
