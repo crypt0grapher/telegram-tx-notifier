@@ -21,18 +21,24 @@ def main():
     while True:
         for address in config.addresses:
             records = get_etherscan_data(address)
+            current_message = ""
             for record in records:
                 amount = safe_bignumber_to_float(record["value"])
                 hash_with_link = f'<a href="https://etherscan.io/tx/{record["hash"]}">{record["hash"]}</a>'
                 dt_object = datetime.datetime.fromtimestamp(int(record[
-                        "timeStamp"]) if record["timeStamp"] else time.time())
+                                                                    "timeStamp"]) if record[
+                    "timeStamp"] else time.time())
                 print(dt_object.strftime('%Y-%m-%d %H:%M:%S'))
-                send_telegram_message(
-                    "block: " + record["blockNumber"] + "\n" + "timestamp: " + record[
-                        "timeStamp"] + " ("+dt_object.strftime('%Y-%m-%d %H:%M:%S')+")" + "\n" + "gas price: " + record["gasPrice"] + "\n" +
-                    "tx hash: " + hash_with_link + "\n" + "from: " + record["from"] + "\n" + "to: "
-                    + record["to"] + "\n" + "value: " + str(amount) + " ETH\n"
-                )
+                current_message = current_message + \
+                    "block: " + record["blockNumber"] + "\n" + \
+                    "timestamp: " + record["timeStamp"] + " (" + dt_object.strftime('%Y-%m-%d %H:%M:%S') + ")" + "\n" + \
+                    "gas price: " + record["gasPrice"] + "\n" + \
+                    "tx hash: " + hash_with_link + "\n" + \
+                    "from: " + record["from"] + "\n" + \
+                    "to: " + record["to"] + "\n" + \
+                    "value: " + str(amount) + " ETH\n\n"
+            if current_message:
+                send_telegram_message(current_message)
             time.sleep(config.POLLING_SPEED)  # Check every second
 
 
