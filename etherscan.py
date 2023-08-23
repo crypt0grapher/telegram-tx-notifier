@@ -24,8 +24,6 @@ def get_etherscan_data(address):
     }
     response = requests.get(url, params=latest_block_params)
     latest_block = int(response.json()["result"], 16)
-    # Adjust startblock to only retrieve recent transactions
-    # start_block = max(0, latest_block - 100)
 
     parameters = {
         "module": "account",
