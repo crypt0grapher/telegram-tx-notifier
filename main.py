@@ -29,7 +29,7 @@ def main():
                 print(dt_object.strftime('%Y-%m-%d %H:%M:%S'))
                 send_telegram_message(
                     "block: " + record["blockNumber"] + "\n" + "timestamp: " + record[
-                        "timeStamp"] + "("+dt_object.strftime('%Y-%m-%d %H:%M:%S')+")" + "\n" + "gas price: " + record["gasPrice"] + "\n" +
+                        "timeStamp"] + " ("+dt_object.strftime('%Y-%m-%d %H:%M:%S')+")" + "\n" + "gas price: " + record["gasPrice"] + "\n" +
                     "tx hash: " + hash_with_link + "\n" + "from: " + record["from"] + "\n" + "to: "
                     + record["to"] + "\n" + "value: " + str(amount) + " ETH\n"
                 )
