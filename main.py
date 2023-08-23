@@ -22,11 +22,11 @@ def main():
             records = get_etherscan_data(address)
             for record in records:
                 amount = safe_bignumber_to_float(record["value"])
-                message = f'<a href="https://etherscan.io/tx/{record["hash"]}">View Transaction on Etherscan</a>'
+                hash_with_link = f'<a href="https://etherscan.io/tx/{record["hash"]}">{record["hash"]}</a>'
                 send_telegram_message(
                     "block: " + record["blockNumber"] + "\n" + "timestamp: " + record[
                         "timeStamp"] + "\n" + "gas price: " + record["gasPrice"] + "\n" +
-                    "tx hash: " + record["hash"] + "\n" + "from: " + record["from"] + "\n" + "to: "
+                    "tx hash: " + hash_with_link + "\n" + "from: " + record["from"] + "\n" + "to: "
                     + record["to"] + "\n" + "value: " + str(amount) + " ETH\n" + message
                 )
             time.sleep(config.POLLING_SPEED)  # Check every second
