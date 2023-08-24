@@ -2,14 +2,15 @@ import os
 from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import CallbackContext
-
 load_dotenv()
 
 ETHERSCAN_API_KEY = os.getenv('ETHERSCAN_API_KEY')
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 DEBUG = False
-POLLING_SPEED = 0.5
+POLLING_SPEED = 5
+BOT_IS_RUNNING = False
+ACTIVE_FILTERS = []
 
 addresses = ['0x56eddb7aa87536c09ccc2793473599fd21a8b17f']
 amount_from = 0.01
@@ -94,4 +95,20 @@ def toggle_debug(update: Update, context: CallbackContext) -> None:
 
 def display_config(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(
-        f"Current bot configuration\nAddresses: {', '.join(addresses)}\nAmount from: {amount_from} ETH\nAmount to: {amount_to} ETH\nPolling speed: {POLLING_SPEED} seconds\nDebug: {DEBUG}")
+        f"Current bot configuration\nRunning: {BOT_IS_RUNNING}\nActive filters: {len(ACTIVE_FILTERS)}\nAddresses: {', '.join(addresses)}\nAmount from: {amount_from} ETH\nAmount to: {amount_to} ETH\nPolling speed: {POLLING_SPEED} seconds\nDebug: {DEBUG}")
+
+
+def start_bot(update: Update, context: CallbackContext) -> None:
+    global BOT_IS_RUNNING
+    if len(ACTIVE_FILTERS) > 0:
+        BOT_IS_RUNNING = True
+        update.message.reply_text("Bot started")
+    else:
+        update.message.reply_text("Please add at least one filter first")
+
+
+def stop_bot(update: Update, context: CallbackContext) -> None:
+    global BOT_IS_RUNNING
+    BOT_IS_RUNNING = False
+    update.message.reply_text("Bot stopped")
+
