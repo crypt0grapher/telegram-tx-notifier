@@ -4,10 +4,10 @@ import time
 import requests
 import os
 
-import config
+import commands
 from etherscan import get_etherscan_data, etherscan_init
 from helpers import safe_bignumber_to_float
-from messaging import send_telegram_message, telegram_init
+from tg_interface import send_telegram_message, telegram_init
 from dotenv import load_dotenv
 
 
@@ -17,10 +17,9 @@ def main():
         sys.exit("Error initializing telegram bot")
     if not etherscan_init():
         sys.exit("Error initializing etherscan")
-
     while True:
-        if config.BOT_IS_RUNNING:
-            for address in config.addresses:
+        if commands.BOT_IS_RUNNING:
+            for address in commands.addresses:
                 records = get_etherscan_data(address)
                 current_message = ""
                 for record in records:
@@ -41,7 +40,8 @@ def main():
                                       "value: " + str(amount) + " ETH\n\n"
                 if current_message:
                     send_telegram_message(current_message)
-        time.sleep(config.POLLING_SPEED)  # Check every second
+        time.sleep(commands.POLLING_SPEED)  # Che
+        # ck every second
 
 
 if __name__ == "__main__":

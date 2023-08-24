@@ -1,5 +1,5 @@
-import config
-from messaging import send_telegram_message
+import commands
+from tg_interface import send_telegram_message
 
 
 def debugmsg(msg):

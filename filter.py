@@ -1,7 +1,5 @@
 import re
 
-from messaging import send_telegram_message
-
 
 class Filter:
     def __init__(self, from_addresses, to_addresses, fresh_from, fresh_to, amount_from, amount_to):
@@ -12,18 +10,18 @@ class Filter:
         self.amount_from = amount_from
         self.amount_to = amount_to
         if self.addr_from == "" and self.addr_to == "":
-            raise ValueError("Error: addr_from and addr_to cannot be empty simpultaneously")
+            raise ValueError("<b>Error:</b> <code>from</code> and <code>to</code> cannot be both empty")
 
     def __init__(self, params_to_parse):
         self.addr_from = ""
         self.addr_to = ""
-        self.fresh_from = 0
-        self.fresh_to = 0
+        self.fresh_from = 5
+        self.fresh_to = 3
         self.amount_from = 0
-        self.amount_to = 0
+        self.amount_to = 0.01
         self.parse_params(params_to_parse)
         if self.addr_from == "" and self.addr_to == "":
-            raise ValueError("Error: addr_from and addr_to cannot be empty simpultaneously")
+            raise ValueError("Error: from and to cannot be both empty")
 
     def __str__(self):
         return f"from: {self.addr_from}, to: {self.addr_to}, fresh_from: {self.fresh_from}, fresh_to: {self.fresh_to}, amount_from: {self.amount_from}, amount_to: {self.amount_to}"
@@ -46,13 +44,6 @@ class Filter:
         # Remove leading and trailing whitespaces
         line = params_to_parse.strip()
 
-        # Check if the line starts with /addfilter
-        if not line.startswith("/addfilter"):
-            return "Error: Line must start with /addfilter"
-
-        # Remove /addfilter from the line
-        line = line[len("/addfilter "):]
-
         # Split the remaining line by comma
         tokens = line.split(',')
 
@@ -60,10 +51,10 @@ class Filter:
         tokens = [token.strip() for token in tokens]
         for token in tokens:
             key = token.split(' ')[0]
-            if key in ['addr_from', 'addr_to']:
+            if key in ['from', 'to']:
                 addresses = re.findall(r'0x[a-fA-F0-9]+', token)
                 if addresses:
-                    setattr(self, key, addresses)
+                    setattr(self, f"addr_{key}", addresses)
                 else:
                     raise ValueError("Invalid {} format. ".format(key))
 

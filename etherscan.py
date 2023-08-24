@@ -1,10 +1,10 @@
 import requests
 
-import config
-from config import ETHERSCAN_API_KEY
+import commands
+from commands import ETHERSCAN_API_KEY
 from debug import debugmsg
 from helpers import safe_bignumber_to_float
-from messaging import send_telegram_message
+from tg_interface import send_telegram_message
 from collections import deque
 
 transaction_cache = deque(maxlen=1000)
