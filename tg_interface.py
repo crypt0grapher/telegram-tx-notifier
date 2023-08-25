@@ -11,8 +11,8 @@ from commands import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, display_config, toggl
 bot = telegram.Bot(TELEGRAM_BOT_TOKEN)
 
 help_msg = "/config to view the current configuration.\n\
-/start to start the bot or a filter by number.\n\
-/stop to stop the bot or a filter by number.\n\
+/start to start the bot.\n\
+/stop to stop the bot.\n\
 /filters to view all the active filters.\n\
 /addfilter to add a new filter, /help <code>addfilter</code> for more. \n\
 /delfilter to delete a filter by name.\n\

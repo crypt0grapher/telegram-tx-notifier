@@ -112,4 +112,4 @@ def filters(update: Update, context: CallbackContext) -> None:
     if len(FILTERS) == 0:
         update.message.reply_text("No active filters")
     else:
-        update.message.reply_text(f"Active filters:\n{'<br/>'.join([str(f) for f in FILTERS])}", parse_mode="HTML")
+        update.message.reply_text(f"Active filters:\n{''.join([str(f) for f in FILTERS])}", parse_mode="HTML")
