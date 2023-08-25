@@ -5,9 +5,8 @@ import asyncio
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext
 
-from commands import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, set_addresses, \
-    set_amount_from, \
-    set_amount_to, display_config, toggle_debug, set_polling_speed, start_bot, stop_bot, add_filter, filters, del_filter
+from commands import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, display_config, toggle_debug, set_polling_speed, start_bot, \
+    stop_bot, add_filter, filters, del_filter
 
 bot = telegram.Bot(TELEGRAM_BOT_TOKEN)
 

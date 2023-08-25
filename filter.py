@@ -20,7 +20,7 @@ class Filter:
         if isinstance(addresses, str):
             addresses = [addresses]
         if not all([is_valid_ethereum_address(address) for address in addresses]):
-                raise ValueError("Invalid address format")
+            raise ValueError("Invalid address format")
         if fresh < 0:
             raise ValueError("Freshness cannot be negative")
         if amount_from < 0:
