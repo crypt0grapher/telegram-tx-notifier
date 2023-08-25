@@ -30,7 +30,7 @@ Note the Etherscan poll rate limitations! there are 5 per second and 1 mln per d
 /adr to specify the sender addresses to monitor.
 /amt_from to set the minimum transaction amount to monitor.
 /amt_to to set the maximum transaction amount to monitor.
-/speed to define the polling frequency in seconds.
+/freq to define the polling frequency in seconds.
 /debug to toggle debug mode for detailed logging.
 /help to display this help message again.
 ```

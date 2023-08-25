@@ -11,29 +11,55 @@ ETHERSCAN_API_KEY = os.getenv('ETHERSCAN_API_KEY')
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 DEBUG = False
-POLLING_SPEED = 5
+POLLING_SPEED = 0.3
 BOT_IS_RUNNING = False
-ACTIVE_FILTERS = []
+FILTERS = []
 
 addresses = ['0x56eddb7aa87536c09ccc2793473599fd21a8b17f']
 amount_from = 0.01
 amount_to = 10
+uptime = 0
 
 
 def add_filter(update: Update, context: CallbackContext) -> None:
-    global ACTIVE_FILTERS
+    global FILTERS
     if len(context.args) == 0:
-        update.message.reply_text("Please provide a filter string")
+        update.message.reply_text("Please provide filter details, /help <code>addfilter</code> for more",
+                                  parse_mode="HTML")
     else:
         try:
             filter_to_add = Filter(params_to_parse=' '.join(context.args))
-            if filter_to_add in ACTIVE_FILTERS:
-                update.message.reply_text(f"Filter {filter_to_add} already exists")
+            if filter_to_add in FILTERS:
+                update.message.reply_text(f"Filter {filter_to_add}Already exists, skipping.")
             else:
-                ACTIVE_FILTERS.append(filter_to_add)
-                update.message.reply_text(f"Filter {filter_to_add} added")
+                if any(f.name == filter_to_add.name for f in FILTERS):
+                    raise ValueError(f"Filter with name {filter_to_add.name} already exists")
+                FILTERS.append(filter_to_add)
+                more_text = "\nBot is not running, please start it with /start" if not BOT_IS_RUNNING else ""
+                update.message.reply_text(f"Filter created:\n{filter_to_add}{more_text}", parse_mode="HTML")
         except ValueError as e:
             update.message.reply_text(f"Error: {str(e)}")
+
+
+def del_filter(update: Update, context: CallbackContext) -> None:
+    global FILTERS
+    if len(context.args) == 0:
+        update.message.reply_text("Please provide filter name", parse_mode="HTML")
+    else:
+        try:
+            filter_to_delete = None
+            for filter in FILTERS:
+                if filter.name.lower() == context.args[0].lower():
+                    filter_to_delete = filter
+                    break
+            if filter_to_delete in FILTERS:
+                FILTERS.remove(filter_to_delete)
+                update.message.reply_text(f"Filter {filter_to_delete} deleted")
+            else:
+                update.message.reply_text(f"Filter {filter_to_delete} not found")
+        except ValueError as e:
+            update.message.reply_text(f"Error: {str(e)}")
+
 
 def set_addresses(update: Update, context: CallbackContext) -> None:
     global addresses
@@ -113,12 +139,16 @@ def toggle_debug(update: Update, context: CallbackContext) -> None:
 
 def display_config(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(
-        f"Current bot configuration\nRunning: {BOT_IS_RUNNING}\nActive filters: {len(ACTIVE_FILTERS)}\nAddresses: {', '.join(addresses)}\nAmount from: {amount_from} ETH\nAmount to: {amount_to} ETH\nPolling speed: {POLLING_SPEED} seconds\nDebug: {DEBUG}")
+        f"<strong>Current bot configuration</strong>\n"
+        f"Bot is {'off' if not BOT_IS_RUNNING else 'running'}\n"
+        f"Filters: {len(FILTERS)}, active {sum(f.active for f in FILTERS)}\n"
+        f"Etherscan is polled every {POLLING_SPEED} seconds\n",
+        parse_mode="HTML")
 
 
 def start_bot(update: Update, context: CallbackContext) -> None:
     global BOT_IS_RUNNING
-    if len(ACTIVE_FILTERS) > 0:
+    if len(FILTERS) > 0:
         BOT_IS_RUNNING = True
         update.message.reply_text("Bot started")
     else:
@@ -130,9 +160,10 @@ def stop_bot(update: Update, context: CallbackContext) -> None:
     BOT_IS_RUNNING = False
     update.message.reply_text("Bot stopped")
 
+
 def filters(update: Update, context: CallbackContext) -> None:
-    global ACTIVE_FILTERS
-    if len(ACTIVE_FILTERS) == 0:
+    global FILTERS
+    if len(FILTERS) == 0:
         update.message.reply_text("No active filters")
     else:
-        update.message.reply_text(f"Active filters: {', '.join([str(f) for f in ACTIVE_FILTERS])}")
+        update.message.reply_text(f"Active filters:\n{'<br/>'.join([str(f) for f in FILTERS])}", parse_mode="HTML")
