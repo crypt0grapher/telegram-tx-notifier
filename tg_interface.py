@@ -37,7 +37,7 @@ def telegram_init():
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("config", display_config, pass_args=True))
     dp.add_handler(CommandHandler("debug", toggle_debug, pass_args=False))
-    dp.add_handler(CommandHandler("speed", set_polling_speed, pass_args=True))
+    dp.add_handler(CommandHandler("freq", set_polling_speed, pass_args=True))
     dp.add_handler(CommandHandler("help", help, pass_args=True))
     dp.add_handler(CommandHandler("start", start_bot, pass_args=True))
     dp.add_handler(CommandHandler("stop", stop_bot, pass_args=True))

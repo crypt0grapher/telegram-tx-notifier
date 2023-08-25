@@ -61,60 +61,6 @@ def del_filter(update: Update, context: CallbackContext) -> None:
             update.message.reply_text(f"Error: {str(e)}")
 
 
-def set_addresses(update: Update, context: CallbackContext) -> None:
-    global addresses
-    args = context.args
-    addresses = args
-    if len(addresses) == 0:
-        update.message.reply_text("Please provide at least one address, or more separated by spaces")
-    else:
-        update.message.reply_text(f"Addresses set to: {', '.join(addresses)}")
-
-
-def set_amount_from(update: Update, context: CallbackContext) -> None:
-    global amount_from
-    if len(context.args) == 0:
-        update.message.reply_text("Please provide a number")
-    elif len(context.args) > 1:
-        update.message.reply_text("Please provide only one number")
-    else:
-        amount_from = float(context.args[0])
-        if amount_from > amount_to:
-            update.message.reply_text(f"Amount from must be less than amount to")
-            amount_from = amount_to
-        elif amount_from < 0:
-            update.message.reply_text(f"Amount from must be greater than 0")
-            amount_from = 0
-        elif amount_from > 999999:
-            update.message.reply_text(f"Amount from must be less than 999999")
-            amount_from = 999999
-        else:
-            update.message.reply_text(f"Amount from set to: {amount_from} ETH")
-
-
-def set_amount_to(update: Update, context: CallbackContext) -> None:
-    global amount_to
-    if len(context.args) == 0:
-        update.message.reply_text("Please provide a number")
-    elif len(context.args) > 1:
-        update.message.reply_text("Please provide only one number")
-    else:
-        amount_to = float(context.args[0])
-        if context.args[0] == "":
-            update.message.reply_text("Please provide a number")
-        elif amount_to < amount_from:
-            update.message.reply_text(f"Amount to must be greater than amount from")
-            amount_to = amount_from
-        elif amount_to < 0:
-            update.message.reply_text(f"Amount to must be greater than 0")
-            amount_to = 0
-        elif amount_to > 999999:
-            update.message.reply_text(f"Amount to must be less than 999999")
-            amount_to = 999999
-        else:
-            update.message.reply_text(f"Amount to set to: {amount_to} ETH")
-
-
 def set_polling_speed(update: Update, context: CallbackContext) -> None:
     global POLLING_SPEED
     if len(context.args) == 0:

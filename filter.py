@@ -21,6 +21,14 @@ class Filter:
             addresses = [addresses]
         if not all([is_valid_ethereum_address(address) for address in addresses]):
                 raise ValueError("Invalid address format")
+        if fresh < 0:
+            raise ValueError("Freshness cannot be negative")
+        if amount_from < 0:
+            raise ValueError("Minimum amount cannot be negative")
+        if amount_to < 0:
+            raise ValueError("Maximum amount cannot be negative")
+        if amount_from > amount_to:
+            raise ValueError("Minimum amount cannot be greater than maximum amount")
         self.active = True
         self.to_filter = to_filter
         self.addresses = addresses
